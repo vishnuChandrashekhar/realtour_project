@@ -1,8 +1,7 @@
-import express, { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction } from "express";
 import { throwError } from "../utils/error.handler";
-import mongoose, { ObjectId } from "mongoose";
-import Listing, { ListingSchema } from "../Models/listing.model";
-import e from "express";
+import mongoose from "mongoose";
+import Listing from "../Models/listing.model";
 
 export const createListing = async (
   req: Request,
