@@ -1,0 +1,6 @@
+{
+  "database": "mongodb+srv://vishnu:vishnu123@mern-realtourestate.7nj0y.mongodb.net/mern-realtourEstate?retryWrites=true&w=majority&appName=mern-realtourEstate",
+  "port": 3000,
+  "salt_work_factor": 10,
+  "jwt_key": "njsnjsdnjfwioejrp9p9i6d6s5f656565d6s"
+}
