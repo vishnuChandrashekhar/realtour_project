@@ -7,17 +7,20 @@ import listingRoutes from "./Routes/listing.route";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/error.handler";
 
-const mongoURI = config.get("database") as string;
-mongoose
-  .connect(mongoURI, {
-    serverSelectionTimeoutMS: 30000,
-  })
-  .then(() => {
+const mongoURI: string = config.get("database");
+
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 30000,
+    });
     console.log("Connected to database");
-  })
-  .catch((err: any) => {
-    console.error(err);
-  });
+  } catch (error) {
+    console.error("Error connecting to database");
+  }
+}
+
+connectToDatabase();
 
 const app: express.Application = express();
 const PORT: string = config.get("port") as string;
