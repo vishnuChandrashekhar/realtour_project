@@ -15,7 +15,7 @@ export const signup = async (
 
   const hashedPassword = bcryptjs.hashSync(password, parseInt(salt));
 
-  const newUser: UserSchema = new User({
+  const newUser = new User({
     username,
     email,
     password: hashedPassword,
@@ -38,7 +38,7 @@ export const signin = async (
   const { email, password } = req.body;
 
   try {
-    const validUser: UserSchema | null = await User.findOne({ email: email });
+    const validUser = await User.findOne({ email: email });
 
     if (!validUser) {
       return next(throwError(404, "User Not Found"));
@@ -79,7 +79,7 @@ export const googleAuth = async (
     Math.random().toString(36).slice(-4);
 
   try {
-    const user: UserSchema | null = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (user) {
       const jwt_key: string = config.get("jwt_key") as string;
@@ -95,7 +95,7 @@ export const googleAuth = async (
       const generatePassword = Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
 
-      const newUser: UserSchema = new User({
+      const newUser = new User({
         username,
         email,
         password: hashedPassword,

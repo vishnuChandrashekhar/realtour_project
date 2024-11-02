@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
 export interface ListingSchema extends Document {
   title: string;
@@ -16,7 +16,7 @@ export interface ListingSchema extends Document {
   userRef: string;
 }
 
-const listingSchema: Schema = new mongoose.Schema(
+const listingSchema = new Schema<ListingSchema>(
   {
     title: {
       type: String,
@@ -63,7 +63,7 @@ const listingSchema: Schema = new mongoose.Schema(
       required: true,
     },
     imageURLs: {
-      type: Array,
+      type: [String],
       required: true,
     },
     userRef: {
@@ -74,6 +74,6 @@ const listingSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Listing = mongoose.model<ListingSchema>("Listing", listingSchema);
+const Listing = model<ListingSchema>("Listing", listingSchema);
 
 export default Listing;
