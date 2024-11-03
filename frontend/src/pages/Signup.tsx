@@ -34,6 +34,7 @@ const Signup: React.FC = () => {
           headers: {
             "Content-type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify(formData),
         }
       );

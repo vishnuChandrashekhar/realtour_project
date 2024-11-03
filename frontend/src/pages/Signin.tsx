@@ -38,8 +38,8 @@ const Signin: React.FC = () => {
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify(formData),
           credentials: "include",
+          body: JSON.stringify(formData),
         }
       );
 

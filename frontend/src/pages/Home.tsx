@@ -19,7 +19,10 @@ const Home: React.FC = () => {
     const fetchOfferListing = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/listing/get?offer=true&limit=3`
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?offer=true&limit=3`,
+          {
+            method: "GET",
+          }
         );
         const data: ListingType[] = await res.json();
         setOfferListings(data);
@@ -31,7 +34,10 @@ const Home: React.FC = () => {
     const fetchRentListing = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=rent&limit=3`
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=rent&limit=3`,
+          {
+            method: "GET",
+          }
         );
         const data: ListingType[] = await res.json();
         setRentListings(data);
@@ -44,7 +50,10 @@ const Home: React.FC = () => {
     const fetchSaleListing = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=sale&limit=3`
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=sale&limit=3`,
+          {
+            method: "GET",
+          }
         );
         const data: ListingType[] = await res.json();
         setSaleListings(data);

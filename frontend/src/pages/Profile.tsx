@@ -93,6 +93,7 @@ const Profile: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/user/update/${currentUser?._id}`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-type": "application/json",
           },
@@ -120,6 +121,7 @@ const Profile: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/user/delete/${currentUser?._id}`,
         {
           method: "DELETE",
+          credentials: "include",
         }
       );
       const data = await res.json();
@@ -136,20 +138,12 @@ const Profile: React.FC = () => {
   };
 
   const handleSignOut = async () => {
-    // interface SignoutSuccessInterface {
-    //   message: string;
-    // }
-
     try {
       dispatch(signoutUserStart());
       await fetch(`${import.meta.env.VITE_BASE_URL}/api/auth/signout`, {
         method: "GET",
+        credentials: "include",
       });
-      // const data: SignoutSuccessInterface | ErrorObject = await res.json();
-
-      // if ("success" in data && data.success === false) {
-      //   console.log(data.message);
-      // }
 
       dispatch(signoutUserSuccess());
     } catch (error: any) {
@@ -186,6 +180,7 @@ const Profile: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/listing/delete/${listingId}`,
         {
           method: "DELETE",
+          credentials: "include",
         }
       );
       const data = await res.json();

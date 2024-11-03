@@ -29,6 +29,7 @@ const PORT: string = config.get("port") as string;
 app.use(
   cors({
     origin: "https://realtour-project.onrender.com",
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })

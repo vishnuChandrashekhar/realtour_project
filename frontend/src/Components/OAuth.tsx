@@ -20,6 +20,7 @@ function OAuth() {
         `${import.meta.env.VITE_BASE_URL}/api/auth/google`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

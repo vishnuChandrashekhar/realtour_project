@@ -120,7 +120,10 @@ const Search: React.FC = () => {
 
     // fetch data
     const res: Response = await fetch(
-      `${import.meta.env.VITE_BASE_URL}/api/listing/get?${searchQuery}`
+      `${import.meta.env.VITE_BASE_URL}/api/listing/get?${searchQuery}`,
+      {
+        method: "GET",
+      }
     );
     const data: ListingType[] = await res.json();
 

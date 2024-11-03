@@ -56,6 +56,7 @@ const UpdateListing: React.FC = () => {
         }/api/listing/getListingById/${listingId}`,
         {
           method: "GET",
+          credentials: "include",
         }
       );
 
@@ -76,11 +77,6 @@ const UpdateListing: React.FC = () => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
       setFiles(selectedFiles);
-
-      // const newPreviewURLs = selectedFiles.map((file) =>
-      //   URL.createObjectURL(file)
-      // );
-      // setPreviewURLs(newPreviewURLs);
     }
   };
 
@@ -209,6 +205,7 @@ const UpdateListing: React.FC = () => {
         }`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

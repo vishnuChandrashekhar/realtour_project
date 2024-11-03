@@ -183,6 +183,7 @@ const CreateListing: React.FC = () => {
         `${import.meta.env.VITE_BASE_URL}/api/listing/create`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
