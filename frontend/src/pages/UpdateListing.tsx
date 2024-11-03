@@ -50,9 +50,14 @@ const UpdateListing: React.FC = () => {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      const res = await fetch(`/api/listing/getListingById/${listingId}`, {
-        method: "GET",
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_BASE_URL
+        }/api/listing/getListingById/${listingId}`,
+        {
+          method: "GET",
+        }
+      );
 
       const data: ListingType | ErrorObject = await res.json();
 
@@ -198,16 +203,21 @@ const UpdateListing: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser?._id,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/listing/update/${
+          params.listingId
+        }`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            userRef: currentUser?._id,
+          }),
+        }
+      );
 
       const data: ErrorObject | ListingType = await res.json();
       console.log(data);

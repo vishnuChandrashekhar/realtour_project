@@ -179,16 +179,19 @@ const CreateListing: React.FC = () => {
         return;
       }
 
-      const res = await fetch("/api/listing/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser?._id,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/listing/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            userRef: currentUser?._id,
+          }),
+        }
+      );
 
       const data: ErrorObject | ListingType = await res.json();
       console.log(data);

@@ -48,9 +48,12 @@ const Search: React.FC = () => {
       setLoading(true);
       setShowMoreButton(false);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/listing/get?${searchQuery}`, {
-        method: "GET",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/listing/get?${searchQuery}`,
+        {
+          method: "GET",
+        }
+      );
       const data: ListingType[] = await res.json();
 
       if (data.length > 8) {
@@ -116,7 +119,9 @@ const Search: React.FC = () => {
     const searchQuery = urlParams.toString();
 
     // fetch data
-    const res: Response = await fetch(`/api/listing/get?${searchQuery}`);
+    const res: Response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/api/listing/get?${searchQuery}`
+    );
     const data: ListingType[] = await res.json();
 
     if (data.length < 9) {

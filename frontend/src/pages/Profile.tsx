@@ -89,13 +89,16 @@ const Profile: React.FC = () => {
 
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser?._id}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/user/update/${currentUser?._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data: UserType | ErrorObject = await res.json();
 
@@ -113,9 +116,12 @@ const Profile: React.FC = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser?._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/user/delete/${currentUser?._id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
 
       if ("success" in data && data.success === false) {
@@ -136,7 +142,7 @@ const Profile: React.FC = () => {
 
     try {
       dispatch(signoutUserStart());
-      await fetch("/api/auth/signout", {
+      await fetch(`${import.meta.env.VITE_BASE_URL}/api/auth/signout`, {
         method: "GET",
       });
       // const data: SignoutSuccessInterface | ErrorObject = await res.json();
@@ -154,10 +160,15 @@ const Profile: React.FC = () => {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(`/api/user/listings/${currentUser?._id}`, {
-        method: "GET",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/user/listings/${
+          currentUser?._id
+        }`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       const data: ListingType[] | ErrorObject = await res.json();
 
       if ("success" in data && data.success === false) {
@@ -171,9 +182,12 @@ const Profile: React.FC = () => {
 
   const handleDeleteListing = async (listingId: string) => {
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/listing/delete/${listingId}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
 
       if ("success" in data && data.success === false) {

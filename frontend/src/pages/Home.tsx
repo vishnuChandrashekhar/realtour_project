@@ -13,13 +13,14 @@ const Home: React.FC = () => {
   const [saleListing, setSaleListings] = useState<ListingType[]>([]);
   const [rentListings, setRentListings] = useState<ListingType[]>([]);
 
-  console.log(offerListings);
   SwiperCore.use([Navigation]);
 
   useEffect(() => {
     const fetchOfferListing = async () => {
       try {
-        const res = await fetch(`/api/listing/get?offer=true&limit=3`);
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?offer=true&limit=3`
+        );
         const data: ListingType[] = await res.json();
         setOfferListings(data);
         fetchRentListing();
@@ -29,7 +30,9 @@ const Home: React.FC = () => {
     };
     const fetchRentListing = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=rent&limit=3`);
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=rent&limit=3`
+        );
         const data: ListingType[] = await res.json();
         setRentListings(data);
         fetchSaleListing();
@@ -40,7 +43,9 @@ const Home: React.FC = () => {
 
     const fetchSaleListing = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=sale&limit=3`);
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/listing/get?type=sale&limit=3`
+        );
         const data: ListingType[] = await res.json();
         setSaleListings(data);
       } catch (error) {
@@ -80,7 +85,7 @@ const Home: React.FC = () => {
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
-            <SwiperSlide>
+            <SwiperSlide key={listing._id}>
               <div
                 style={{
                   background: `url(${listing.imageURLs}) center no-repeat`,

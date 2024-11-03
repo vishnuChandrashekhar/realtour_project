@@ -31,14 +31,17 @@ const Signin: React.FC = () => {
     e.preventDefault();
     try {
       dispatch(signinStart());
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/auth/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         dispatch(signinFailure("Invalid credentials"));

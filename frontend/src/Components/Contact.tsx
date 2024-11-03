@@ -14,9 +14,12 @@ const Contact: React.FC<ContactProps> = ({ listing }) => {
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
-        const res = await fetch(`/api/user/${listing.userRef}`, {
-          method: "GET",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/user/${listing.userRef}`,
+          {
+            method: "GET",
+          }
+        );
         const data: Partial<UserType> | ErrorObject = await res.json();
 
         setLandlord(data as UserType);

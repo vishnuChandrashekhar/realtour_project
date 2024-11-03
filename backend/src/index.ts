@@ -6,6 +6,7 @@ import authRoutes from "./Routes/auth.route";
 import listingRoutes from "./Routes/listing.route";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/error.handler";
+import cors from "cors";
 
 const mongoURI: string = config.get("database");
 
@@ -24,6 +25,14 @@ connectToDatabase();
 
 const app: express.Application = express();
 const PORT: string = config.get("port") as string;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());

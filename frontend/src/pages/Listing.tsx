@@ -32,7 +32,9 @@ const Listing: React.FC = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `/api/listing/getListingById/${params.listingId}`,
+          `${import.meta.env.VITE_BASE_URL}/api/listing/getListingById/${
+            params.listingId
+          }`,
           {
             method: "GET",
           }
