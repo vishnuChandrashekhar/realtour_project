@@ -58,7 +58,12 @@ export const signin = async (
     const { password: _, ...rest } = validUser.toObject();
 
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 48 * 60 * 60 * 1000,
+      })
       .status(200)
       .json(rest);
   } catch (error) {
@@ -88,7 +93,12 @@ export const googleAuth = async (
       const { password: _, ...rest } = user.toObject();
 
       res
-        .cookie("access_token", token, { httpOnly: true })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          maxAge: 48 * 60 * 60 * 1000,
+        })
         .status(200)
         .json(rest);
     } else {
@@ -109,7 +119,12 @@ export const googleAuth = async (
       const { password: _, ...rest } = newUser.toObject();
 
       res
-        .cookie("access_token", token, { httpOnly: true })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          maxAge: 48 * 60 * 60 * 1000,
+        })
         .status(201)
         .json(rest);
     }
