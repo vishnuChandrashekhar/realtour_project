@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserSchema } from "../../../backend/src/Models/user.model";
+import { UserType } from "../Types/typesForDevlopment";
 import { useDispatch, useSelector } from "react-redux";
 import {
   signinStart,
@@ -46,7 +46,7 @@ const Signin: React.FC = () => {
       }
 
       // Check this line once more the typing must be wrong, it works but not the right way!
-      const data: Omit<UserSchema, "password"> = await response.json();
+      const data: Omit<UserType, "password"> = await response.json();
 
       if (data && data.email === formData.email) {
         dispatch(signinSuccess(data));
