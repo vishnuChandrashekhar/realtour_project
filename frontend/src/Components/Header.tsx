@@ -3,9 +3,12 @@ import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
+import { UserState } from "../Redux/user/userSlice";
 
 const Header: React.FC = () => {
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { currentUser } = useSelector(
+    (state: RootState) => state.user
+  ) as UserState;
   const naviagte = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
 

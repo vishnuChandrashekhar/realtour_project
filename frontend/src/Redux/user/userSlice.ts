@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserSchema } from "../../../../backend/src/Models/user.model";
+import { createSlice } from "@reduxjs/toolkit";
+import { UserType } from "../../Types/typesForDevlopment";
 
 export interface UserReduxSchema {
   _id: string | undefined;
@@ -7,8 +7,8 @@ export interface UserReduxSchema {
   email: string;
 }
 
-interface UserState {
-  currentUser: UserSchema | null;
+export interface UserState {
+  currentUser: UserType | null;
   error: string | null;
   loading: boolean;
 }
@@ -30,7 +30,7 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
       (state.loading = false), (state.error = null);
     },
-    signinFailure: (state, action: PayloadAction<string>) => {
+    signinFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -42,7 +42,7 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
       state.error = null;
     },
-    updateUserFilure: (state, action: PayloadAction<string>) => {
+    updateUserFilure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
-    deleteUserFailure: (state, action: PayloadAction<string>) => {
+    deleteUserFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -66,7 +66,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.error = null;
     },
-    signoutUserFailure: (state, action: PayloadAction<string>) => {
+    signoutUserFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

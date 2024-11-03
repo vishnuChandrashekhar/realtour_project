@@ -1,10 +1,10 @@
 import React from "react";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
+import { ListingType } from "../Types/typesForDevlopment";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 
 interface ListingCardProps {
-  listing: Partial<ListingSchema>;
+  listing: Partial<ListingType>;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {

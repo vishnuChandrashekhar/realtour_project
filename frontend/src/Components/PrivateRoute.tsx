@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { Outlet, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { UserState } from "../Redux/user/userSlice";
 
 function PrivateRouute() {
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { currentUser } = useSelector(
+    (state: RootState) => state.user
+  ) as UserState;
 
   const token = Cookies.get("access_token");
 

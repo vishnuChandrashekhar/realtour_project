@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
+import { ListingType } from "../Types/typesForDevlopment";
 import { SwiperSlide, Swiper } from "swiper/react";
 
 import SwiperCore from "swiper";
@@ -9,9 +9,9 @@ import "swiper/swiper-bundle.css";
 import ListingCard from "../Components/ListingCard";
 
 const Home: React.FC = () => {
-  const [offerListings, setOfferListings] = useState<ListingSchema[]>([]);
-  const [saleListing, setSaleListings] = useState<ListingSchema[]>([]);
-  const [rentListings, setRentListings] = useState<ListingSchema[]>([]);
+  const [offerListings, setOfferListings] = useState<ListingType[]>([]);
+  const [saleListing, setSaleListings] = useState<ListingType[]>([]);
+  const [rentListings, setRentListings] = useState<ListingType[]>([]);
 
   console.log(offerListings);
   SwiperCore.use([Navigation]);
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
     const fetchOfferListing = async () => {
       try {
         const res = await fetch(`/api/listing/get?offer=true&limit=3`);
-        const data: ListingSchema[] = await res.json();
+        const data: ListingType[] = await res.json();
         setOfferListings(data);
         fetchRentListing();
       } catch (error) {
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
     const fetchRentListing = async () => {
       try {
         const res = await fetch(`/api/listing/get?type=rent&limit=3`);
-        const data: ListingSchema[] = await res.json();
+        const data: ListingType[] = await res.json();
         setRentListings(data);
         fetchSaleListing();
       } catch (error) {
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
     const fetchSaleListing = async () => {
       try {
         const res = await fetch(`/api/listing/get?type=sale&limit=3`);
-        const data: ListingSchema[] = await res.json();
+        const data: ListingType[] = await res.json();
         setSaleListings(data);
       } catch (error) {
         console.log(error);

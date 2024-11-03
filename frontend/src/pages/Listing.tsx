@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
-import { ErrorObject } from "../../../backend/src/utils/error.handler";
+import { ListingType } from "../Types/typesForDevlopment";
+import { ErrorObject } from "../Types/typesForDevlopment";
 // For Slider
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -13,16 +13,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import Contact from "../Components/Contact";
 import { toast } from "react-toastify";
+import { UserState } from "../Redux/user/userSlice";
 const Listing: React.FC = () => {
   //Slider initialization
   SwiperCore.use([Navigation]);
-  const [listing, setListing] = useState<ListingSchema | null>(null);
+  const [listing, setListing] = useState<ListingType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | boolean>(false);
   const [contact, setContact] = useState<boolean>(false);
 
   const params = useParams();
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { currentUser } = useSelector(
+    (state: RootState) => state.user
+  ) as UserState;
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -34,7 +37,7 @@ const Listing: React.FC = () => {
             method: "GET",
           }
         );
-        const data: ListingSchema | ErrorObject = await res.json();
+        const data: ListingType | ErrorObject = await res.json();
 
         if ("success" in data && data.success === false) {
           setError(data.message);
@@ -42,7 +45,7 @@ const Listing: React.FC = () => {
           return;
         }
 
-        setListing(data as ListingSchema);
+        setListing(data as ListingType);
         setLoading(false);
         setError(false);
       } catch (error: any) {

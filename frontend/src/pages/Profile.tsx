@@ -7,7 +7,7 @@ import React, {
   ChangeEvent,
   FormEvent,
 } from "react";
-import { ErrorObject } from "../../../backend/src/utils/error.handler";
+import { ErrorObject } from "../Types/typesForDevlopment";
 import {
   getDownloadURL,
   getStorage,
@@ -15,7 +15,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { UserSchema } from "../../../backend/src/Models/user.model";
+import { UserType } from "../Types/typesForDevlopment";
 import {
   updateUserStart,
   updateUserFilure,
@@ -26,27 +26,28 @@ import {
   signoutUserStart,
   signoutUserFailure,
   signoutUserSuccess,
+  UserState,
 } from "../Redux/user/userSlice";
 import { Link } from "react-router-dom";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
+import { ListingType } from "../Types/typesForDevlopment";
 // import { persistor } from "../Redux/store";
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
   const { currentUser, loading, error } = useSelector(
     (state: RootState) => state.user
-  );
+  ) as UserState;
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<File | undefined>(undefined);
   const [filePercent, setFilePercent] = useState<number>(0);
   const [fileUploadError, setFileUploadError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<Partial<UserSchema>>({});
+  const [formData, setFormData] = useState<Partial<UserType>>({});
   const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const [showListingsError, setShowListingsError] = useState<boolean | string>(
     false
   );
-  const [userListings, setUserListings] = useState<ListingSchema[]>([]);
+  const [userListings, setUserListings] = useState<ListingType[]>([]);
   const handleFileUpload = (file: File | undefined) => {
     if (!file) {
       console.error("No file to upload");
@@ -96,12 +97,12 @@ const Profile: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      const data: UserSchema | ErrorObject = await res.json();
+      const data: UserType | ErrorObject = await res.json();
 
       if ("success" in data && data.success === false) {
         dispatch(updateUserFilure(data.message));
       } else {
-        dispatch(updateUserSuccess(data as UserSchema));
+        dispatch(updateUserSuccess(data as UserType));
       }
       setIsUpdateSuccess(true);
     } catch (error: any) {
@@ -157,12 +158,12 @@ const Profile: React.FC = () => {
         method: "GET",
         credentials: "include",
       });
-      const data: ListingSchema[] | ErrorObject = await res.json();
+      const data: ListingType[] | ErrorObject = await res.json();
 
       if ("success" in data && data.success === false) {
         return setShowListingsError(data.message);
       }
-      setUserListings(data as ListingSchema[]);
+      setUserListings(data as ListingType[]);
     } catch (errro) {
       setShowListingsError(true);
     }

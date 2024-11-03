@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
-import { UserSchema } from "../../../backend/src/Models/user.model";
-import { ErrorObject } from "../../../backend/src/utils/error.handler";
+import { ListingType } from "../Types/typesForDevlopment";
+import { UserType } from "../Types/typesForDevlopment";
+import { ErrorObject } from "../Types/typesForDevlopment";
 import { Link } from "react-router-dom";
 
 interface ContactProps {
-  listing: ListingSchema;
+  listing: ListingType;
 }
 
 const Contact: React.FC<ContactProps> = ({ listing }) => {
-  const [landlord, setLandlord] = useState<Partial<UserSchema> | null>(null);
+  const [landlord, setLandlord] = useState<Partial<UserType> | null>(null);
   const [message, setMessage] = useState<string>("");
   useEffect(() => {
     const fetchLandlord = async () => {
@@ -17,9 +17,9 @@ const Contact: React.FC<ContactProps> = ({ listing }) => {
         const res = await fetch(`/api/user/${listing.userRef}`, {
           method: "GET",
         });
-        const data: Partial<UserSchema> | ErrorObject = await res.json();
+        const data: Partial<UserType> | ErrorObject = await res.json();
 
-        setLandlord(data as UserSchema);
+        setLandlord(data as UserType);
       } catch (error) {
         console.log(error);
       }

@@ -6,19 +6,22 @@ import {
 } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { app } from "../firebase";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
-import { ErrorObject } from "../../../backend/src/utils/error.handler";
+import { ListingType } from "../Types/typesForDevlopment";
+import { ErrorObject } from "../Types/typesForDevlopment";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { useNavigate, useParams } from "react-router-dom";
+import { UserState } from "../Redux/user/userSlice";
 
 const UpdateListing: React.FC = () => {
-  const { currentUser } = useSelector((state: RootState) => state.user);
+  const { currentUser } = useSelector(
+    (state: RootState) => state.user
+  ) as UserState;
   const navigate = useNavigate();
   const params = useParams();
   const [files, setFiles] = useState<File[]>([]);
 
-  const [formData, setFormData] = useState<Partial<ListingSchema>>({
+  const [formData, setFormData] = useState<Partial<ListingType>>({
     title: "",
     description: "",
     address: "",
@@ -51,12 +54,12 @@ const UpdateListing: React.FC = () => {
         method: "GET",
       });
 
-      const data: ListingSchema | ErrorObject = await res.json();
+      const data: ListingType | ErrorObject = await res.json();
 
       if ("success" in data && data.success === false) {
         console.log(data.message);
       } else {
-        setFormData(data as ListingSchema);
+        setFormData(data as ListingType);
       }
     };
 
@@ -206,14 +209,14 @@ const UpdateListing: React.FC = () => {
         }),
       });
 
-      const data: ErrorObject | ListingSchema = await res.json();
+      const data: ErrorObject | ListingType = await res.json();
       console.log(data);
       setLoading(false);
 
       if ("success" in data && data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${(data as ListingSchema)._id}`);
+      navigate(`/listing/${(data as ListingType)._id}`);
     } catch (error: any) {
       setError(error.message);
       setLoading(false);

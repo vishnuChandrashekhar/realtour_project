@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ListingSchema } from "../../../backend/src/Models/listing.model";
+import { ListingType } from "../Types/typesForDevlopment";
 import ListingCard from "../Components/ListingCard";
 
 const Search: React.FC = () => {
@@ -26,7 +26,7 @@ const Search: React.FC = () => {
     order: "desc",
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [listings, setListings] = useState<Partial<ListingSchema>[]>([]);
+  const [listings, setListings] = useState<Partial<ListingType>[]>([]);
   const [showMoreButton, setShowMoreButton] = useState<boolean>(false);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Search: React.FC = () => {
       const res = await fetch(`/api/listing/get?${searchQuery}`, {
         method: "GET",
       });
-      const data: ListingSchema[] = await res.json();
+      const data: ListingType[] = await res.json();
 
       if (data.length > 8) {
         setShowMoreButton(true);
@@ -117,7 +117,7 @@ const Search: React.FC = () => {
 
     // fetch data
     const res: Response = await fetch(`/api/listing/get?${searchQuery}`);
-    const data: ListingSchema[] = await res.json();
+    const data: ListingType[] = await res.json();
 
     if (data.length < 9) {
       setShowMoreButton(false);
