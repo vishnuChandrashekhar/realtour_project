@@ -63,7 +63,7 @@ const Header: React.FC = () => {
               About
             </li>
           </Link>
-          <Link to={"/profile"}>
+          <Link to={currentUser && currentUser.avatar ? "/profile" : "/signin"}>
             {currentUser && currentUser.avatar ? (
               <img
                 className="rounded-full h-7 w-7 object-cover border"
@@ -71,11 +71,9 @@ const Header: React.FC = () => {
                 alt="profile-pic"
               />
             ) : (
-              <Link to={"/signin"}>
-                <li className="text-slate-700 hover:underline font-semibold">
-                  sign in
-                </li>{" "}
-              </Link>
+              <li className="text-slate-700 hover:underline font-semibold">
+                Sign in
+              </li>
             )}
           </Link>
         </ul>
